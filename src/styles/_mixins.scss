@@ -1,0 +1,22 @@
+@use 'sass:map';
+@use "variables" as *;
+
+@mixin flex-center($direction: row, $gap: 0) {
+    display: flex;
+    flex-direction: $direction;
+    gap: $gap;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin for-phone-up {
+    @media (min-width: 769px) { @content; }
+}
+
+@mixin for-desktop-up {
+    @media (min-width: 1200px) { @content; }
+}
+
+@function size($size) {
+    @return map.get($sizes, $size)
+}

@@ -1,0 +1,26 @@
+@use "variables" as *;
+
+.button {
+    color: $white;
+    text-decoration: none;
+    border: 1px solid $white;
+    padding: 12px 40px;
+    border-radius: 24px;
+    letter-spacing: 1px;
+
+    &:hover {
+        animation: pulse 2s infinite;
+    }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
