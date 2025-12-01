@@ -8,7 +8,7 @@
         </header>
         <div class="images-container">
             <div class="images-container_singing-bowl">
-                <img @click="playBowl" src="../assets/images/singing-bowl.png" alt="tibetian singing bowl">
+                <img @click="playInstrument(bowlSoundFiles)" src="../assets/images/singing-bowl.png" alt="tibetian singing bowl">
                 <router-link to="/booking" class="button hollow">Book a session</router-link>
             </div>
             <div class="images-container_gong">
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="images-container_chimes">
-                <img @click="playChimes" src="../assets/images/koshi-chimes.png" alt="tibetian singing bowl">
+                <img @click="playInstrument(chimesSoundFiles)" src="../assets/images/koshi-chimes.png" alt="tibetian singing bowl">
                 <router-link to="/about" class="button hollow">About the journey</router-link>
             </div>
         </div>
@@ -69,10 +69,10 @@ const labelVisible = ref<boolean>(false);
 const labelPosition = reactive({ x: 0, y: 0 });
 const gongCicked = ref<boolean>(false);
 
-function playBowl() {
-    if (bowlSoundFiles.length === 0) return;
+function playInstrument(files: string | any[]) {
+    if (files.length === 0) return;
 
-    bowlSoundFiles[0]?.play();
+    files[0]?.play();
 }
 
 function playGong() {
@@ -89,12 +89,6 @@ function playGong() {
     const audio = gongSoundFiles[randomIndex];
 
     audio?.play();
-}
-
-function playChimes() {
-    if (chimesSoundFiles.length === 0) return;
-
-    chimesSoundFiles[0]?.play();
 }
 
 const labelStyle = computed(() => ({
