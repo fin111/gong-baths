@@ -9,7 +9,7 @@
         <div class="images-container">
             <div class="images-container_singing-bowl">
                 <img @click="playInstrument(bowlSoundFiles)" src="../assets/images/singing-bowl.png" alt="tibetian singing bowl">
-                <!-- <router-link to="/booking" class="button hollow">Book a session</router-link> -->
+                <router-link to="/booking" class="button hollow">Book a session</router-link>
             </div>
             <div class="images-container_gong">
                 <div class="gong-glow"></div>
@@ -29,7 +29,7 @@
             </div>
             <div class="images-container_chimes">
                 <img @click="playInstrument(chimesSoundFiles)" src="../assets/images/koshi-chimes.png" alt="tibetian singing bowl">
-                <!-- <router-link to="/about" class="button hollow">About the journey</router-link> -->
+                <router-link to="/about" class="button hollow">About the journey</router-link>
             </div>
         </div>
     </section>

@@ -1,5 +1,9 @@
 # Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Run `npm run dev` to run the site locally
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+To show the Ticket Tailor events locally:
+install netlify cli -> npm install -g netlify-cli
+Run `netlify dev`
+this will spin up `http://localhost:8888` and show the site
+and to see the ticket tailor events response use the url `http://localhost:8888/.netlify/functions/events`
