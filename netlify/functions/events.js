@@ -1,26 +1,41 @@
-import 'dotenv/config';
+export async function handler(event) {
+  try {
+    const apiKey = process.env.TT_API_KEY;
 
-export default async function handler(event) {
-    try {
-        const response = await fetch('https://api.tickettailor.com/v1/events', {
-            headers: {
-                Authorization: `Basic ${Buffer
-                    .from(process.env.TT_API_KEY + ':')
-                    .toString('base64')}`
-            }
-        });
+    if (!apiKey) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Missing TT_API_KEY' })
+      };
+    }
 
-        const data = await response.json();
+    const auth = Buffer
+      .from(`${apiKey}:`)
+      .toString('base64');
 
-        return new Response(JSON.stringify(data), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-        });
-    } catch (err) {
-        console.error(err);
-        return new Response(JSON.stringify({ error: 'Failed to fetch events' }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' }
-        });
+    const response = await fetch(
+      'https://api.tickettailor.com/v1/events',
+      {
+        headers: {
+          Authorization: `Basic ${auth}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    return {
+      statusCode: response.status,
+      body: JSON.stringify(data)
     };
-};
+
+  } catch (err) {
+    console.error(err);
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to fetch events' })
+    };
+  }
+}
