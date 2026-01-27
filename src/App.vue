@@ -23,7 +23,7 @@ const currentRoute = computed(() => route.path);
 <style lang="scss" scoped>
 main {
     &.container-top {
-        padding-top: 100px;
+        padding-top: 110px;
     }
 }
 </style>

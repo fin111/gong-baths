@@ -48,7 +48,6 @@ $contact-y: 10px;
     margin-left: -190px;
     padding-top: 20px;
     padding-left: 190px;
-    width: 380px;
     height: 250px;
     box-sizing: border-box;
     font-size: 14px;
@@ -137,7 +136,7 @@ $contact-y: 10px;
 
     .menu-item,
     .menu-open-button {
-        background: #a67c00;
+        background: $golden;
         border-radius: 100%;
         width: 70px;
         height: 70px;

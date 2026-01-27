@@ -1,30 +1,25 @@
 <template>
-    <section class="contact">
-        <h1>Contact Me</h1>
+    <section class="contact-form">
         <form @submit.prevent="sendEmail" ref="formRef">
-            <label>
-                Name:
-                <input v-model="form.name" name="from_name" required />
-            </label>
-            <label>
-                Email:
+                <input v-model="form.name" name="from_name" placeholder="Name" required />
                 <input
                     v-model="form.email"
                     type="email"
                     name="reply_to"
+                    placeholder="Email"
                     required
                 />
-            </label>
-            <label>
-                Message:
                 <textarea
                     v-model="form.message"
                     name="message"
+                    placeholder="Message"
                     required
                 ></textarea>
-            </label>
-
-            <button type="submit" :disabled="sending">
+            <button 
+                class="button flex justify-center mt-4 text-white disabled:opacity-50" 
+                type="submit" 
+                :disabled="sending"
+            >
                 <span v-if="!sending">Send Message</span>
                 <span v-else class="loading-dots">
                     Sending<span>.</span><span>.</span><span>.</span>
@@ -92,12 +87,17 @@ const sendEmail = async () => {
 </script>
 
 <style scoped lang="scss">
-.contact {
+.contact-form {
     max-width: 500px;
     margin: 2rem auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    label {
+        font-family: "Poppins", sans-serif;
+        color: $white;
+    }
 
     input,
     textarea {
@@ -105,17 +105,13 @@ const sendEmail = async () => {
         padding: 0.5rem;
         border: 1px solid #ccc;
         border-radius: 4px;
+        color: initial;
+        margin-bottom: size(4);
     }
 
     button {
-        background: $primary-color;
-        color: white;
-        border: none;
-        padding: 0.75rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 600;
-        position: relative;
+        background: $golden;
+        
         &:disabled {
             opacity: 0.6;
             cursor: not-allowed;

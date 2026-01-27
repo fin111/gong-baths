@@ -15,7 +15,7 @@
       </p>
 
       <a
-        class="button mt-4 inline-block bg-black text-white py-2 rounded-lg disabled:opacity-50"
+        class="flex justify-center button mt-4 text-white disabled:opacity-50"
         :disabled="!event.tickets_available" 
         :href="`${event.checkout_url}?ref=website`"
         target="_blank"
@@ -63,3 +63,17 @@ async function fetchEvents(): Promise<TTEvent[]> {
   }
 }
 </script>
+
+<style scoped lang="scss">
+img {
+    max-height: 150px;
+    object-fit: cover;
+}
+
+a {
+    &.button {
+        background: $golden;
+    }
+}
+</style>
+

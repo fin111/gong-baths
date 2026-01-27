@@ -3,7 +3,7 @@
         <header>
             <h1>Welcome to Echoes of Healing</h1>
             <p>
-                Experience deep relaxation and balance through the power of sound
+                Experience deep relaxation and balance through the power of<br />sound in Winchester, UK
             </p>
         </header>
         <div class="images-container">
@@ -62,8 +62,6 @@ const chimesSoundFiles = [
 ]
 
 const lastIndex = ref<number>(-1);
-const buttonRef = ref<HTMLElement | null>(null);
-const labelRef = ref<HTMLElement | null>(null);
 
 const labelVisible = ref<boolean>(false);
 const labelPosition = reactive({ x: 0, y: 0 });
@@ -171,12 +169,10 @@ onUnmounted(() => {
         }
 
         h1 {
-            font-size: size(6);
             line-height: 1.1;
             margin-bottom: size(3);
 
             @include for-phone-up {
-                font-size: size(12);
                 line-height: 1.2;
             }
         }
