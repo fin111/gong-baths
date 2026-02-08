@@ -6,12 +6,13 @@
       class="border rounded-xl p-4 shadow-sm"
     >
     <img :src="event.images.thumbnail" :alt="event.name">
-      <h3 class="text-lg font-semibold text-white">
+      <h3 class="text-lg font-semibold text-white mt-2">
         {{ event.name }}
       </h3>
 
       <p class="text-sm text-white-600">
-        {{ event.start.formatted }}
+        {{ event.start.formatted }}<br />
+        Domuum Rd, Winchester
       </p>
 
       <a
@@ -28,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import { dateIsAfter } from '@/util/helpers';
 import { onMounted, ref } from 'vue'
 
 export interface TTEvent {
@@ -35,12 +37,14 @@ export interface TTEvent {
   name: string,
   start: {
     formatted: string,
-  }
+    iso: Date,
+  },
   tickets_available: boolean,
   checkout_url: string,
   images: {
     thumbnail: string,
-  }
+  },
+  status: string,
 }
 
 const events = ref<TTEvent[]>([])
@@ -51,15 +55,23 @@ onMounted(async () => {
 
 async function fetchEvents(): Promise<TTEvent[]> {
   try {
-    const res = await fetch('/.netlify/functions/events')
+    const res = await fetch('/.netlify/functions/events');
+
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`)
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
-    const data = await res.json()
-    return data.data as TTEvent[]
+    const data = await res.json();
+
+    const filteredResults = data.data.filter((event: { status: string; start: { iso: string | number | Date; }; }) => {
+         return event.status === 'published' && dateIsAfter(event.start.iso, new Date().toISOString());
+    });
+
+    return filteredResults as TTEvent[];
+
   } catch (error) {
-    console.error('Failed to fetch events:', error)
-    return []
+    console.error('Failed to fetch events:', error);
+    
+    return [];
   }
 }
 </script>
