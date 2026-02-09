@@ -44,6 +44,7 @@ import gong4 from "@/assets/sounds/gong4.mp3";
 import gong5 from "@/assets/sounds/gong5.mp3";
 import singingBowl from "@/assets/sounds/singing-bowl.mp3";
 import koshiChimes from "@/assets/sounds/koshi-chimes.mp3";
+import { trackEvent } from '@/types/ga';
 
 const gongSoundFiles = [
     new Audio(gong1),
@@ -68,9 +69,16 @@ const labelPosition = reactive({ x: 0, y: 0 });
 const gongCicked = ref<boolean>(false);
 
 function playInstrument(files: string | any[]) {
+    console.log('files', files)
     if (files.length === 0) return;
 
     files[0]?.play();
+
+    trackEvent(`click_instrument`, {
+        event_category: 'sound engagement',
+        event_label: `play ${files[0].src}`,
+        value: 1
+    });
 }
 
 function playGong() {
@@ -87,6 +95,12 @@ function playGong() {
     const audio = gongSoundFiles[randomIndex];
 
     audio?.play();
+
+    trackEvent(`click_instrument`, {
+        event_category: 'sound engagement',
+        event_label: `play gong - sound ${randomIndex}`,
+        value: 1
+    });
 }
 
 const labelStyle = computed(() => ({

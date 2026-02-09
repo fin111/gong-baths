@@ -21,6 +21,7 @@
         :href="`${event.checkout_url}?ref=website`"
         target="_blank"
         noopener
+        @click="trackButton(event.start.formatted)"
       >
         {{ !event.tickets_available ? 'Sold Out' : 'Book now' }}
     </a>
@@ -29,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import { trackEvent } from '@/types/ga';
 import { dateIsAfter } from '@/util/helpers';
 import { onMounted, ref } from 'vue'
 
@@ -73,6 +75,14 @@ async function fetchEvents(): Promise<TTEvent[]> {
     
     return [];
   }
+}
+
+function trackButton(date: string) {
+    trackEvent('book_now_click', {
+    event_category: 'engagement',
+    event_label: `Booking Button - ${date}`,
+    value: 1
+  });
 }
 </script>
 
