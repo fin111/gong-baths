@@ -69,7 +69,6 @@ const labelPosition = reactive({ x: 0, y: 0 });
 const gongCicked = ref<boolean>(false);
 
 function playInstrument(files: string | any[]) {
-    console.log('files', files)
     if (files.length === 0) return;
 
     files[0]?.play();
