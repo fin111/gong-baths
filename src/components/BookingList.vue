@@ -12,7 +12,7 @@
 
       <p class="text-sm text-white-600">
         {{ event.start.formatted }}<br />
-        Domuum Rd, Winchester
+        Domum Rd, Winchester
       </p>
 
       <a

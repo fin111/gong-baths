@@ -11,7 +11,15 @@ const routes = [
     { path: '/contact', name: 'Contact', component: Contact },
 ];
 
-export default createRouter({
+const router =  createRouter({
     history: createWebHistory(),
     routes,
 });
+
+router.afterEach((to) => {
+  window.gtag?.('event', 'page_view', {
+    page_path: to.fullPath,
+  });
+});
+
+export default router;
