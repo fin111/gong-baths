@@ -12,7 +12,7 @@
             </p>
 
             <a class="flex justify-center button mt-4 text-white disabled:opacity-50"
-                :disabled="!event.tickets_available" :href="`${event.checkout_url}?ref=website`" target="_blank"
+                :disabled="!event.tickets_available" :href="`${event.url}?ref=website`" target="_blank"
                 noopener @click="trackButton(event.start.formatted)">
                 {{ !event.tickets_available ? 'Sold Out' : 'Book now' }}
             </a>

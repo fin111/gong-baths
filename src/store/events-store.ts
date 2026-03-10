@@ -14,6 +14,7 @@ export interface TTEvent {
     thumbnail: string,
   },
   status: string,
+  url: string,
 }
 
 export const useEventsStore = defineStore('events', {
