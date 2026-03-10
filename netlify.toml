@@ -1,8 +1,2 @@
-[build]
-functions = "netlify/functions"
-
-[[redirects]]
-from = "/sitemap.xml"
-to = "/.netlify/functions/sitemap"
-status = 200
-force = true
+[functions]
+  directory = "netlify/functions"

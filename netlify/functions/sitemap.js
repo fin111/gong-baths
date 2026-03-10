@@ -1,19 +1,20 @@
-export async function handler() {
-
-  const baseUrl = "https://echoesofhealing.co.uk"
+export default async (req) => {
+  const baseUrl = "https://echoesofhealing.co.uk";
 
   const staticPages = [
     "",
     "/about",
     "/booking",
     "/contact"
-  ]
+  ];
 
   // Fetch events
-  const res = await fetch(`${baseUrl}/.netlify/functions/events`)
-  const data = await res.json()
+  const res = await fetch(`${baseUrl}/.netlify/functions/events`);
+  const data = await res.json();
 
-  const events = data.data || []
+  const events = (data.data || []).filter(event => {
+    return new Date(event.start.iso) > new Date();
+  });
 
   const eventUrls = events.map(event => {
     return `
@@ -22,8 +23,8 @@ export async function handler() {
         <lastmod>${new Date().toISOString()}</lastmod>
         <priority>0.8</priority>
       </url>
-    `
-  }).join("")
+    `;
+  }).join("");
 
   const staticUrls = staticPages.map(page => {
     return `
@@ -31,20 +32,23 @@ export async function handler() {
         <loc>${baseUrl}${page}</loc>
         <priority>0.9</priority>
       </url>
-    `
-  }).join("")
+    `;
+  }).join("");
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     ${staticUrls}
     ${eventUrls}
-  </urlset>`
+  </urlset>`;
 
-  return {
-    statusCode: 200,
+  return new Response(sitemap, {
+    status: 200,
     headers: {
       "Content-Type": "application/xml"
-    },
-    body: sitemap
-  }
-}
+    }
+  });
+};
+
+export const config = {
+  path: "/sitemap.xml"
+};
