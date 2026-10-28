@@ -8,7 +8,7 @@ export interface TTEvent {
     formatted: string,
     iso: Date,
   },
-  tickets_available: boolean,
+  tickets_available: 'true' | 'false',
   checkout_url: string,
   images: {
     thumbnail: string,
@@ -31,9 +31,14 @@ export const useEventsStore = defineStore('events', {
                 }
                 const data = await res.json();
 
-                const filteredResults = data.data.filter((event: { status: string; start: { iso: string | number | Date; }; }) => {
-                    return event.status === 'published' && dateIsAfter(event.start.iso, new Date().toISOString());
-                });
+                const filteredResults = data.data
+                    .filter((event: TTEvent) =>
+                        event.status === 'published' &&
+                        dateIsAfter(event.start.iso, new Date().toISOString())
+                    )
+                    .sort((a: TTEvent, b: TTEvent) =>
+                        new Date(a.start.iso).getTime() - new Date(b.start.iso).getTime()
+                    );
 
                 this.events = filteredResults;
 
